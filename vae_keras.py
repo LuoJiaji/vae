@@ -83,6 +83,7 @@ vae.fit(x_train,
 
 # 构建encoder，然后观察各个数字在隐空间的分布
 encoder = Model(x, z_mean)
+encoder.save('./model/encoder.h5')
 
 x_test_encoded = encoder.predict(x_test, batch_size=batch_size)
 plt.figure(figsize=(6, 6))
@@ -95,6 +96,7 @@ decoder_input = Input(shape=(latent_dim,))
 _h_decoded = decoder_h(decoder_input)
 _x_decoded_mean = decoder_mean(_h_decoded)
 generator = Model(decoder_input, _x_decoded_mean)
+generator.save('./model/generator.h5')
 
 # 观察隐变量的两个维度变化是如何影响输出结果的
 n = 15  # figure with 15x15 digits
