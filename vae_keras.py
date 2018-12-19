@@ -71,7 +71,7 @@ vae_loss = K.mean(xent_loss + kl_loss)
 
 # add_loss是新增的方法，用于更灵活地添加各种loss
 vae.add_loss(vae_loss)
-vae.compile(optimizer='rmsprop')
+vae.compile(optimizer='rmsprop',loss='')
 vae.summary()
 
 vae.fit(x_train,
