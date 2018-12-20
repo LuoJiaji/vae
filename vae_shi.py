@@ -127,7 +127,9 @@ class Evaluate(Callback):
         self.log = []
     def on_epoch_end(self, epoch, logs=None):
         self.log.append(gen())
-        print (u'          %s'%(self.log[-1])).encode('utf-8')
+        # print (u'          %s'%(self.log[-1])).encode('utf-8')
+        print (u'          %s'%(self.log[-1]))
+
 
 
 evaluator = Evaluate()
@@ -138,7 +140,7 @@ vae.fit(shi2id,
         batch_size=64,
         callbacks=[evaluator])
 
-vae.save_weights('shi.model')
+vae.save_weights('./model/shi.model')
 
 for i in range(20):
     print(gen()) 
