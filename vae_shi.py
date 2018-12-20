@@ -51,7 +51,10 @@ class GCNN(Layer): # 定义GCNN层，结合残差
                                      initializer='glorot_uniform',
                                      trainable=True)
     def call(self, x):
-        _ = K.conv1d(x, self.kernel, padding='same')
+        print('x:',x)
+        print('kernal:',self.kernel)
+        _ = K.conv1d(x, self.kernel, padding='same',data_format='channels_last')
+        print('_:',_)
         _ = _[:,:,:self.output_dim] * K.sigmoid(_[:,:,self.output_dim:])
         if self.residual:
             return _ + x
@@ -97,7 +100,7 @@ vae_loss = K.mean(xent_loss + kl_loss)
 
 # add_loss是新增的方法，用于更灵活地添加各种loss
 vae.add_loss(vae_loss)
-vae.compile(optimizer='adam')
+vae.compile(optimizer='adam',loss='')
 vae.summary()
 
 # 重用解码层，构建单独的生成模型
@@ -138,4 +141,4 @@ vae.fit(shi2id,
 vae.save_weights('shi.model')
 
 for i in range(20):
-    print gen()
+    print(gen()) 
